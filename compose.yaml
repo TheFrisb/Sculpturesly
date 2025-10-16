@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - sculpturesly_postgres_data_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:latest
+    volumes:
+      - sculpturesly_redis_data_volume:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  sculpturesly_postgres_data_volume:
+  sculpturesly_redis_data_volume:
