@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "watch-tailwind": "npx tailwindcss -i ./static/css/tailwind_input.css -o ./static/css/tailwind_output.css --watch",
+    "build-tailwind": "npx tailwindcss -i ./static/css/tailwind_input.css -o ./static/css/tailwind_output.css --minify"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}
