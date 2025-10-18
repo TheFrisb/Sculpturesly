@@ -22,5 +22,3 @@ class CartItem(TimestampedModel):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items")
     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-
-
