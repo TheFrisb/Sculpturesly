@@ -135,6 +135,7 @@ class Product(TimestampedModel):
 
 
 class ProductVariant(TimestampedModel):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     sku = models.CharField(max_length=255)
     height = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
@@ -144,7 +145,8 @@ class ProductVariant(TimestampedModel):
     image = models.ImageField(upload_to=variant_upload_to)
     categories = models.ManyToManyField(
         Category, related_name="variants", blank=True, verbose_name=_("Categories")
-    )  # Optional: if variants need separate categories
+    )
+    external_url = models.URLField(blank=True)
 
 
 class ProductImage(TimestampedModel):
