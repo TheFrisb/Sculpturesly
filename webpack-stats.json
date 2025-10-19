@@ -1,0 +1,19 @@
+{
+  "status": "done",
+  "assets": {
+    "main.dfab646951cc56353386.js": {
+      "name": "main.dfab646951cc56353386.js",
+      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/main.dfab646951cc56353386.js"
+    },
+    "runtime.58f495dda4e4ca93e77b.js": {
+      "name": "runtime.58f495dda4e4ca93e77b.js",
+      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/runtime.58f495dda4e4ca93e77b.js"
+    }
+  },
+  "chunks": {
+    "main": [
+      "runtime.58f495dda4e4ca93e77b.js",
+      "main.dfab646951cc56353386.js"
+    ]
+  }
+}
