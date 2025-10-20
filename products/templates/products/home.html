@@ -1,125 +1,31 @@
 {% extends 'common/base.html' %}
 {% block content %}
     <!-- Hero Carousel -->
-    <section class="relative h-screen overflow-hidden bg-secondary-900"><!-- Carousel Container -->
-        <div class="relative h-full"><!-- Slide 1 -->
-            <div class="absolute inset-0 transition-all duration-1000 ease-in-out opacity-0 scale-110"><img
-                    src="https://giant-sculptures.com/cdn/shop/files/3_5d1a76de-84c8-460a-963f-a156b382cd8b.jpg?v=1735851600&amp;width=2400"
-                    alt="Exquisite Modern Sculptures" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center text-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="mb-8"><span
-                                class="inline-block bg-white/10 text-white px-6 py-2 rounded-full text-sm font-medium backdrop-blur-sm border border-white/20"> Premium Sculpture Collection </span>
+    <section class="bg-secondary-900 splide splide--heroSection min-h-screen">
+        <div class="splide__track">
+            <ul class="splide__list">
+                {% for slide in hero_sections %}
+                    <li class="splide__slide"
+                        style="
+                                background-image: url('{{ slide.image.url }}');
+                                background-size: cover;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                ">
+                        <div class="flex items-center justify-center h-full ">
+                            <div class="text-center text-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{{ slide.headline }}</h1>
+                                <p class="text-lg sm:text-xl mb-10 text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">{{ slide.subtitle }}</p>
+                                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <a href="#" class="bg-white text-secondary-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg">{{ slide.primary_button_text }}</a>
+                                    <a href="#" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300">{{ slide.secondary_button_text }}</a>
+                                </div>
+                            </div>
                         </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"> Transform Your Space
-                            with <span class="text-accent-400 block mt-2">Masterful Art</span></h1>
-                        <p class="text-lg sm:text-xl mb-10 text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
-                            Discover unique handcrafted sculptures from world-renowned artists. Each piece is carefully
-                            curated to bring elegance to your space. </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button class="bg-white text-secondary-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg">
-                                Explore Collection
-                            </button>
-                            <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300">
-                                Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- Slide 2 -->
-            <div class="absolute inset-0 transition-all duration-1000 ease-in-out opacity-100 scale-100"><img
-                    src="https://giant-sculptures.com/cdn/shop/files/3_5d1a76de-84c8-460a-963f-a156b382cd8b.jpg?v=1735851600&amp;width=2400"
-                    alt="Classical Art Sculptures" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center text-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="mb-8"><span
-                                class="inline-block bg-white/10 text-white px-6 py-2 rounded-full text-sm font-medium backdrop-blur-sm border border-white/20"> Classical Heritage </span>
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"> Classical Beauty
-                            Meets <span class="text-accent-400 block mt-2">Modern Vision</span></h1>
-                        <p class="text-lg sm:text-xl mb-10 text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
-                            From Renaissance masterpieces to contemporary abstracts. Each sculpture comes with
-                            authenticity certification. </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button class="bg-white text-secondary-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg">
-                                Browse Classics
-                            </button>
-                            <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300">
-                                Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- Slide 3 -->
-            <div class="absolute inset-0 transition-all duration-1000 ease-in-out opacity-0 scale-110"><img
-                    src="https://giant-sculptures.com/cdn/shop/files/3_5d1a76de-84c8-460a-963f-a156b382cd8b.jpg?v=1735851600&amp;width=2400"
-                    alt="Garden Outdoor Sculptures" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center text-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="mb-8"><span
-                                class="inline-block bg-white/10 text-white px-6 py-2 rounded-full text-sm font-medium backdrop-blur-sm border border-white/20"> Garden &amp; Outdoor </span>
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"> Elevate Your <span
-                                class="text-accent-400 block mt-2">Outdoor Space</span></h1>
-                        <p class="text-lg sm:text-xl mb-10 text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">
-                            Weather-resistant sculptures designed for gardens and landscapes. Professional installation
-                            services available. </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button class="bg-white text-secondary-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg">
-                                Shop Outdoor
-                            </button>
-                            <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300">
-                                Installation Guide
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- Carousel Indicators -->
-        <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-            <button class="w-2 h-2 rounded-full transition-all duration-300 bg-white/40 hover:bg-white/60"></button>
-            <button class="w-2 h-2 rounded-full transition-all duration-300 bg-white w-6"></button>
-            <button class="w-2 h-2 rounded-full transition-all duration-300 bg-white/40 hover:bg-white/60"></button>
-        </div><!-- Trust Indicators -->
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent pt-16 pb-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                    <div class="text-white">
-                        <div class="text-2xl font-bold text-white mb-1">500+</div>
-                        <div class="text-sm text-gray-300">Unique Pieces</div>
-                    </div>
-                    <div class="text-white">
-                        <div class="text-2xl font-bold text-white mb-1">150+</div>
-                        <div class="text-sm text-gray-300">Renowned Artists</div>
-                    </div>
-                    <div class="text-white">
-                        <div class="text-2xl font-bold text-white mb-1">Free</div>
-                        <div class="text-sm text-gray-300">Free Shipping</div>
-                    </div>
-                    <div class="text-white">
-                        <div class="text-2xl font-bold text-white mb-1">100%</div>
-                        <div class="text-sm text-gray-300">Authenticated</div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- Navigation Arrows -->
-        <button class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300 z-20">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="lucide h-6 w-6 lucide-chevron-left-icon lucide-chevron-left h-6 w-6">
-                <path d="m15 18-6-6 6-6"></path>
-            </svg>
-        </button>
-        <button class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300 z-20">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="lucide h-6 w-6 lucide-chevron-right-icon lucide-chevron-right h-6 w-6">
-                <path d="m9 18 6-6-6-6"></path>
-            </svg>
-        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </section>
     <!-- End Hero Carousel -->
 

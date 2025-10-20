@@ -8,3 +8,10 @@ class TimestampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class OrderableModel(models.Model):
+    sort_order = models.IntegerField(default=0, blank=False, null=True)
+
+    class Meta:
+        abstract = True

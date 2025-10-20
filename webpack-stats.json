@@ -1,19 +1,24 @@
 {
   "status": "done",
   "assets": {
-    "main.dfab646951cc56353386.js": {
-      "name": "main.dfab646951cc56353386.js",
-      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/main.dfab646951cc56353386.js"
+    "main.0f7eae152fe822ddb4f8.js": {
+      "name": "main.0f7eae152fe822ddb4f8.js",
+      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/main.0f7eae152fe822ddb4f8.js"
     },
-    "runtime.58f495dda4e4ca93e77b.js": {
-      "name": "runtime.58f495dda4e4ca93e77b.js",
-      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/runtime.58f495dda4e4ca93e77b.js"
+    "runtime.f371d5dd674e9acfc3aa.js": {
+      "name": "runtime.f371d5dd674e9acfc3aa.js",
+      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/runtime.f371d5dd674e9acfc3aa.js"
+    },
+    "vendors.3b4bcb0f5dd775236f21.js": {
+      "name": "vendors.3b4bcb0f5dd775236f21.js",
+      "path": "/home/thefrisb/Desktop/freelance/Sculpturesly/static/js/webpack-bundles/vendors.3b4bcb0f5dd775236f21.js"
     }
   },
   "chunks": {
     "main": [
-      "runtime.58f495dda4e4ca93e77b.js",
-      "main.dfab646951cc56353386.js"
+      "runtime.f371d5dd674e9acfc3aa.js",
+      "vendors.3b4bcb0f5dd775236f21.js",
+      "main.0f7eae152fe822ddb4f8.js"
     ]
   }
 }

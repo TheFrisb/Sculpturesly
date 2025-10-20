@@ -1,3 +1,5 @@
+import {initHeroSlider} from "./sliders/hero-slider";
+
 document.addEventListener("DOMContentLoaded", () => {
-  console.log('yea')
+  initHeroSlider()
 })

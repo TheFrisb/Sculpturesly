@@ -1,4 +1,5 @@
 {% load static %}
+{% load render_bundle from webpack_loader %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,8 +8,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% if title %}{{ title }}{% else %}Sculpturesly{% endif %}</title>
-    <link rel="stylesheet" href="{% static 'css/tailwind_output.css' %}">
 
+    <!-- Critical CSS -->
+    <link rel="preload" as="style" href="{% static 'css/tailwind_output.css' %}">
+    <link rel="preload" as="style" href="{% static 'css/splide/splide.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/tailwind_output.css' %}">
+    <link rel="stylesheet" href="{% static 'css/splide/splide.min.css' %}">
+    <!-- End Critical CSS -->
 </head>
 <body>
 {% include 'common/includes/header.html' %}
@@ -18,5 +25,6 @@
 </main>
 
 {% include 'common/includes/footer.html' %}
+{% render_bundle 'main' 'js' %}
 </body>
 </html>
