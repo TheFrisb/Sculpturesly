@@ -25,7 +25,7 @@ def product_image_upload_to(instance, filename):
 
 def product_gallery_upload_to(instance, filename):
     ext = filename.split(".")[-1].lower()
-    slug_part = get_product_slug(instance.product)
+    slug_part = get_product_slug(instance.variant.product)
     return f"products/{slug_part}/gallery/{uuid.uuid4()}.{ext}"
 
 
@@ -41,7 +41,7 @@ class Category(MPTTModel, TimestampedModel):
     Categories can have parent-child relationships.
     """
 
-    name = models.CharField(max_length=255, verbose_name=_("Category Name"))
+    title = models.CharField(max_length=255, verbose_name=_("Category Name"))
     slug = models.SlugField(
         max_length=255, unique=True, blank=True, verbose_name=_("Slug")
     )
@@ -58,17 +58,17 @@ class Category(MPTTModel, TimestampedModel):
     class Meta:
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
-        ordering = ["name"]
+        ordering = ["title"]
 
     class MPTTMeta:
-        order_insertion_by = ["name"]
+        order_insertion_by = ["title"]
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.name)
+            base_slug = slugify(self.title)
             self.slug = get_unique_slug(self.__class__, base_slug, self)
         super().save(*args, **kwargs)
 
@@ -79,7 +79,7 @@ class Collection(TimestampedModel):
     Collections can have multiple products, and products can be in multiple collections.
     """
 
-    name = models.CharField(max_length=255, verbose_name=_("Collection Name"))
+    title = models.CharField(max_length=255, verbose_name=_("Collection Name"))
     slug = models.SlugField(
         max_length=255, unique=True, blank=True, verbose_name=_("Slug")
     )
@@ -92,14 +92,14 @@ class Collection(TimestampedModel):
     class Meta:
         verbose_name = _("Collection")
         verbose_name_plural = _("Collections")
-        ordering = ["name"]
+        ordering = ["title"]
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.name)
+            base_slug = slugify(self.title)
             self.slug = get_unique_slug(self.__class__, base_slug, self)
         super().save(*args, **kwargs)
 
@@ -126,6 +126,7 @@ class Product(TimestampedModel):
     categories = models.ManyToManyField(
         Category, related_name="products", blank=True, verbose_name=_("Categories")
     )
+    price_start = models.DecimalField(default="499.99", decimal_places=2, max_digits=10)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -133,9 +134,14 @@ class Product(TimestampedModel):
             self.slug = get_unique_slug(self.__class__, base_slug, self)
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.title
+
 
 class ProductVariant(TimestampedModel):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name="variants"
+    )
     sku = models.CharField(max_length=255)
     height = models.DecimalField(max_digits=10, decimal_places=2)
     width = models.DecimalField(max_digits=10, decimal_places=2)
@@ -146,11 +152,12 @@ class ProductVariant(TimestampedModel):
     categories = models.ManyToManyField(
         Category, related_name="variants", blank=True, verbose_name=_("Categories")
     )
+    regular_price = models.DecimalField(max_digits=10, decimal_places=2)
     external_url = models.URLField(blank=True)
 
 
 class ProductImage(TimestampedModel):
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="gallery"
+    variant = models.ForeignKey(
+        ProductVariant, on_delete=models.CASCADE, related_name="gallery"
     )
     image = models.ImageField(upload_to=product_gallery_upload_to)

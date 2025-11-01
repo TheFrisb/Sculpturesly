@@ -17,8 +17,10 @@
                                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{{ slide.headline }}</h1>
                                 <p class="text-lg sm:text-xl mb-10 text-gray-200 max-w-2xl mx-auto leading-relaxed font-light">{{ slide.subtitle }}</p>
                                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                                    <a href="#" class="bg-white text-secondary-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg">{{ slide.primary_button_text }}</a>
-                                    <a href="#" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300">{{ slide.secondary_button_text }}</a>
+                                    <a href="#"
+                                       class="bg-white text-secondary-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg">{{ slide.primary_button_text }}</a>
+                                    <a href="#"
+                                       class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300">{{ slide.secondary_button_text }}</a>
                                 </div>
                             </div>
                         </div>
@@ -39,200 +41,74 @@
             <div class="flex justify-center mb-16">
                 <div class="bg-gray-100 rounded-2xl p-1.5 shadow-sm border border-gray-200">
                     <div class="flex space-x-1">
-                        <button class="px-6 py-3 text-base font-medium transition-all duration-200 rounded-xl whitespace-nowrap text-white bg-gray-900 shadow-sm">
-                            Modern Elegance
-                        </button>
-                        <button class="px-6 py-3 text-base font-medium transition-all duration-200 rounded-xl whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-white">
-                            Classical Heritage
-                        </button>
-                        <button class="px-6 py-3 text-base font-medium transition-all duration-200 rounded-xl whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-white">
-                            Garden Sanctuary
-                        </button>
-                        <button class="px-6 py-3 text-base font-medium transition-all duration-200 rounded-xl whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-white">
-                            Abstract Vision
-                        </button>
+                        {% for category, products in best_sellers.items %}
+                            <button class="px-6 py-3 text-base font-medium transition-all duration-200 rounded-xl whitespace-nowrap text-white bg-gray-900 shadow-sm"
+                                    data-category="{{ category }}">
+                                {{ category }}
+                            </button>
+                        {% endfor %}
                     </div>
                 </div>
-            </div><!-- Products Grid -->
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-square overflow-hidden bg-gray-50 relative"><img
-                            src="https://stardeco-diffusion.fr/wp-content/uploads/2025/04/JF-12599A.png"
-                            alt="Eternal Grace"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <!-- Overlay for better interaction -->
-                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                        <!-- Add to Cart Button - appears on hover -->
-                        <button class="absolute bottom-3 right-3 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white p-2.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 shadow-md disabled:cursor-not-allowed">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="lucide h-4 w-4 lucide-shopping-bag-icon lucide-shopping-bag h-4 w-4">
-                                <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                <path d="M3.103 6.034h17.794"></path>
-                                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
-                            </svg>
-                        </button>
-                    </div><!-- Content -->
-                    <div class="p-5"><!-- Collection Name -->
-                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Modern Elegance
-                        </div><!-- Product Name --><h3
-                                class="text-lg font-semibold text-gray-900 mb-3 leading-tight line-clamp-2">Eternal
-                            Grace</h3><!-- Price and Actions -->
-                        <div class="flex items-center justify-between">
-                            <div><span class="text-xl font-bold text-gray-900">$2850.00</span>
-                                <div class="text-xs text-gray-500 mt-1">Free shipping</div>
-                            </div><!-- View Details Button -->
-                            <button class="flex items-center space-x-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200">
-                                <span>View details</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-square overflow-hidden bg-gray-50 relative"><img
-                            src="https://stardeco-diffusion.fr/wp-content/uploads/2025/04/JF-12599A.png"
-                            alt="Urban Symphony"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <!-- Overlay for better interaction -->
-                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                        <!-- Add to Cart Button - appears on hover -->
-                        <button class="absolute bottom-3 right-3 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white p-2.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 shadow-md disabled:cursor-not-allowed">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="lucide h-4 w-4 lucide-shopping-bag-icon lucide-shopping-bag h-4 w-4">
-                                <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                <path d="M3.103 6.034h17.794"></path>
-                                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
-                            </svg>
-                        </button>
-                    </div><!-- Content -->
-                    <div class="p-5"><!-- Collection Name -->
-                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Modern Elegance
-                        </div><!-- Product Name --><h3
-                                class="text-lg font-semibold text-gray-900 mb-3 leading-tight line-clamp-2">Urban
-                            Symphony</h3><!-- Price and Actions -->
-                        <div class="flex items-center justify-between">
-                            <div><span class="text-xl font-bold text-gray-900">$3200.00</span>
-                                <div class="text-xs text-gray-500 mt-1">Free shipping</div>
-                            </div><!-- View Details Button -->
-                            <button class="flex items-center space-x-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200">
-                                <span>View details</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-square overflow-hidden bg-gray-50 relative"><img
-                            src="https://stardeco-diffusion.fr/wp-content/uploads/2025/04/JF-12599A.png"
-                            alt="Flowing Lines"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <!-- Overlay for better interaction -->
-                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                        <!-- Add to Cart Button - appears on hover -->
-                        <button class="absolute bottom-3 right-3 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white p-2.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 shadow-md disabled:cursor-not-allowed">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="lucide h-4 w-4 lucide-shopping-bag-icon lucide-shopping-bag h-4 w-4">
-                                <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                <path d="M3.103 6.034h17.794"></path>
-                                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
-                            </svg>
-                        </button>
-                    </div><!-- Content -->
-                    <div class="p-5"><!-- Collection Name -->
-                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Modern Elegance
-                        </div><!-- Product Name --><h3
-                                class="text-lg font-semibold text-gray-900 mb-3 leading-tight line-clamp-2">Flowing
-                            Lines</h3><!-- Price and Actions -->
-                        <div class="flex items-center justify-between">
-                            <div><span class="text-xl font-bold text-gray-900">$2650.00</span>
-                                <div class="text-xs text-gray-500 mt-1">Free shipping</div>
-                            </div><!-- View Details Button -->
-                            <button class="flex items-center space-x-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200">
-                                <span>View details</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-square overflow-hidden bg-gray-50 relative"><img
-                            src="https://stardeco-diffusion.fr/wp-content/uploads/2025/04/JF-12599A.png"
-                            alt="Geometric Harmony"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <!-- Overlay for better interaction -->
-                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                        <!-- Add to Cart Button - appears on hover -->
-                        <button class="absolute bottom-3 right-3 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white p-2.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 shadow-md disabled:cursor-not-allowed">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="lucide h-4 w-4 lucide-shopping-bag-icon lucide-shopping-bag h-4 w-4">
-                                <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                <path d="M3.103 6.034h17.794"></path>
-                                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
-                            </svg>
-                        </button>
-                    </div><!-- Content -->
-                    <div class="p-5"><!-- Collection Name -->
-                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Modern Elegance
-                        </div><!-- Product Name --><h3
-                                class="text-lg font-semibold text-gray-900 mb-3 leading-tight line-clamp-2">Geometric
-                            Harmony</h3><!-- Price and Actions -->
-                        <div class="flex items-center justify-between">
-                            <div><span class="text-xl font-bold text-gray-900">$2950.00</span>
-                                <div class="text-xs text-gray-500 mt-1">Free shipping</div>
-                            </div><!-- View Details Button -->
-                            <button class="flex items-center space-x-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200">
-                                <span>View details</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- View Full Collection Link -->
-            <div class="text-center mt-16"><a href="/category/modern-contemporary"
-                                              class="inline-flex items-center space-x-3 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 shadow-sm hover:shadow-md group"><span>View Modern Elegance Collection</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="lucide h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5">
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
-                </svg>
-            </a></div>
+                {% for category, products in best_sellers.items %}
+                    {% for product in products %}
+                        <a href="{% url 'products:product' slug=product.slug %}" class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 hover:border-gray-300"
+                             data--category="{{ category }}">
+                            <div class="aspect-square overflow-hidden bg-gray-50 relative">
+                                <img
+                                        src="{{ product.image.url }}"
+                                        alt="{{ product.title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                <button class="absolute bottom-3 right-3 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white p-2.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 shadow-md disabled:cursor-not-allowed">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         class="lucide h-4 w-4 lucide-shopping-bag-icon lucide-shopping-bag h-4 w-4">
+                                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                        <path d="M3.103 6.034h17.794"></path>
+                                        <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="p-5">
+                                <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Modern Elegance</p>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 leading-tight line-clamp-2">{{ product.title }}</h3>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xl font-bold text-gray-900">${{ product.price_start }}</span>
+                                        <div class="text-xs text-gray-500 mt-1">Free shipping</div>
+                                    </div>
+                                    <button class="flex items-center space-x-1 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                                        <span>View details</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24"
+                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round"
+                                             class="lucide h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5">
+                                            <path d="M5 12h14"></path>
+                                            <path d="m12 5 7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="text-center mt-16">
+                <a href="/category/modern-contemporary"
+                   class="inline-flex items-center space-x-3 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 shadow-sm hover:shadow-md group">
+                    <span>View Modern Elegance Collection</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="lucide h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
     </section>
     <!-- End Best Sellers Section -->
@@ -286,21 +162,23 @@
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed"> Discover curated
                     collections that represent different artistic movements and styles, each telling a unique story </p>
             </div>
-            <div class="relative"><!-- Collection Cards -->
+            <div class="relative">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                        <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                                src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                                alt="Modern Minimalism"
+                    {% for item in categories %}
+                        <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
+                        <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+                            <img src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
+                                alt="{{ item.category.title}}"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
                             <!-- Collection Info Overlay -->
                             <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                    class="text-xl font-bold mb-2 transition-colors duration-300">Modern Minimalism</h3>
-                                <p class="text-sm text-white/90 mb-4 leading-relaxed">Clean lines and contemporary
-                                    sophistication</p>
+                                    class="text-xl font-bold mb-2 transition-colors duration-300">{{ item.category.title }}</h3>
+                                {% if item.category.description %}
+                                <p class="text-sm text-white/90 mb-4 leading-relaxed">{{ item.category.description }}</p>
+                                {% endif %}
                                 <div class="flex items-center justify-between"><span
-                                        class="text-xs bg-white/20 text-white px-3 py-1 rounded-full font-medium backdrop-blur-sm">48 pieces </span>
+                                        class="text-xs bg-white/20 text-white px-3 py-1 rounded-full font-medium backdrop-blur-sm">{{ item.total_products }} pieces </span>
                                     <div class="flex items-center space-x-1 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
                                         <span>Explore</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -315,61 +193,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                        <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                                src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                                alt="Classical Heritage"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
-                            <!-- Collection Info Overlay -->
-                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                    class="text-xl font-bold mb-2 transition-colors duration-300">Classical
-                                Heritage</h3>
-                                <p class="text-sm text-white/90 mb-4 leading-relaxed">Timeless beauty inspired by
-                                    ancient masters</p>
-                                <div class="flex items-center justify-between"><span
-                                        class="text-xs bg-white/20 text-white px-3 py-1 rounded-full font-medium backdrop-blur-sm">36 pieces </span>
-                                    <div class="flex items-center space-x-1 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                        <span>Explore</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                            <path d="M5 12h14"></path>
-                                            <path d="m12 5 7 7-7 7"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                        <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                                src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                                alt="Garden Sanctuary"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
-                            <!-- Collection Info Overlay -->
-                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                    class="text-xl font-bold mb-2 transition-colors duration-300">Garden Sanctuary</h3>
-                                <p class="text-sm text-white/90 mb-4 leading-relaxed">Weather-resistant pieces for
-                                    outdoor spaces</p>
-                                <div class="flex items-center justify-between"><span
-                                        class="text-xs bg-white/20 text-white px-3 py-1 rounded-full font-medium backdrop-blur-sm">29 pieces </span>
-                                    <div class="flex items-center space-x-1 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                        <span>Explore</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                            <path d="M5 12h14"></path>
-                                            <path d="m12 5 7 7-7 7"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -741,6 +565,7 @@
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed"> Discover our curated
                     collections organized by style, material, and artistic movement </p></div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for item in categories %}
                 <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
                     <!-- Image Container -->
                     <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
@@ -748,17 +573,19 @@
                             alt="Modern &amp; Contemporary"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="absolute inset-0 bg-black/40 pointer-events-none"></div><!-- Badge -->
-                        <div class="absolute top-4 left-4"><span
-                                class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Trending</span>
-                        </div><!-- Count -->
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Trending</span>
+                        </div>
                         <div class="absolute top-4 right-4"><span
-                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">48 pieces </span>
+                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">{{ item.total_products }} pieces </span>
                         </div><!-- Category Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3
                                 class="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
-                            Modern &amp; Contemporary</h3>
-                            <p class="text-sm text-white/90 mb-4 leading-relaxed">Modern and contemporary abstract
-                                sculptures that push creative boundaries</p>
+                            {{ item.category.title }}</h3>
+                            {% if item.category.description %}
+                            <p class="text-sm text-white/90 mb-4 leading-relaxed">{{ item.category.description }}</p>
+                            {% endif %}
                             <div class="flex items-center space-x-2 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
                                 <span>Explore Collection</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -772,164 +599,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                            src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                            alt="Classical &amp; Traditional"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div><!-- Badge -->
-                        <div class="absolute top-4 left-4"><span
-                                class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Heritage</span>
-                        </div><!-- Count -->
-                        <div class="absolute top-4 right-4"><span
-                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">29 pieces </span>
-                        </div><!-- Category Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                class="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
-                            Classical &amp; Traditional</h3>
-                            <p class="text-sm text-white/90 mb-4 leading-relaxed">Timeless masterpieces inspired by
-                                centuries of artistic tradition</p>
-                            <div class="flex items-center space-x-2 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                <span>Explore Collection</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                            src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                            alt="Garden &amp; Outdoor"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div><!-- Badge -->
-                        <div class="absolute top-4 left-4"><span
-                                class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Garden</span>
-                        </div><!-- Count -->
-                        <div class="absolute top-4 right-4"><span
-                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">42 pieces </span>
-                        </div><!-- Category Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                class="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
-                            Garden &amp; Outdoor</h3>
-                            <p class="text-sm text-white/90 mb-4 leading-relaxed">Weather-resistant sculptures designed
-                                to enhance outdoor spaces</p>
-                            <div class="flex items-center space-x-2 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                <span>Explore Collection</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                            src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                            alt="Decorative &amp; Small"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div><!-- Badge -->
-                        <div class="absolute top-4 left-4"><span
-                                class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Interior</span>
-                        </div><!-- Count -->
-                        <div class="absolute top-4 right-4"><span
-                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">67 pieces </span>
-                        </div><!-- Category Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                class="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
-                            Decorative &amp; Small</h3>
-                            <p class="text-sm text-white/90 mb-4 leading-relaxed">Small to medium decorative pieces
-                                perfect for home and office</p>
-                            <div class="flex items-center space-x-2 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                <span>Explore Collection</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                            src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                            alt="Bronze Collection"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div><!-- Badge -->
-                        <div class="absolute top-4 left-4"><span
-                                class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Crafted</span>
-                        </div><!-- Count -->
-                        <div class="absolute top-4 right-4"><span
-                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">38 pieces </span>
-                        </div><!-- Category Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                class="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
-                            Bronze Collection</h3>
-                            <p class="text-sm text-white/90 mb-4 leading-relaxed">Exceptional bronze sculptures crafted
-                                with traditional techniques</p>
-                            <div class="flex items-center space-x-2 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                <span>Explore Collection</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 hover:border-gray-300">
-                    <!-- Image Container -->
-                    <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative"><img
-                            src="https://giant-sculptures.com/cdn/shop/files/15_07dd8209-1baa-4246-8e3c-8b77d1ae8736.jpg?v=1744585725&amp;width=1500"
-                            alt="Marble Masterpieces"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div><!-- Badge -->
-                        <div class="absolute top-4 left-4"><span
-                                class="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/30">Luxury</span>
-                        </div><!-- Count -->
-                        <div class="absolute top-4 right-4"><span
-                                class="bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">24 pieces </span>
-                        </div><!-- Category Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white"><h3
-                                class="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
-                            Marble Masterpieces</h3>
-                            <p class="text-sm text-white/90 mb-4 leading-relaxed">Exquisite marble sculptures showcasing
-                                timeless elegance</p>
-                            <div class="flex items-center space-x-2 text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-300">
-                                <span>Explore Collection</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="lucide h-4 w-4 lucide-arrow-right-icon lucide-arrow-right h-4 w-4">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- View All Categories Link -->
-            <div class="text-center mt-16"><a href="/category/all-categories"
-                                              class="inline-flex items-center space-x-3 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 shadow-sm hover:shadow-md group"><span>Explore All Categories</span>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-16">
+                <a href="/category/all-categories" class="inline-flex items-center space-x-3 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 shadow-sm hover:shadow-md group"><span>Explore All Categories</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                      class="lucide h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5 lucide-arrow-right-icon lucide-arrow-right h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5">

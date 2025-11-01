@@ -58,7 +58,6 @@ class Command(BaseCommand):
                 continue
 
             try:
-                # Create Product
                 product = Product(title=clean_title)
                 with open(full_image_path, "rb") as img_file:
                     product.image.save(
@@ -67,11 +66,10 @@ class Command(BaseCommand):
                 product.save()
                 logger.info(f"Created Product: {clean_title}")
 
-                # Create ProductVariant
                 sku = data.get("sku", "")
                 height = data.get("height_cm", 0.00)
                 width = data.get("width_cm", 0.00)
-                length = data.get("depth_cm", 0.00)  # Assuming depth_cm maps to length
+                length = data.get("depth_cm", 0.00)
                 external_url = data.get("product_page_url", "")
 
                 variant = ProductVariant(
@@ -83,6 +81,7 @@ class Command(BaseCommand):
                     stock_quantity=0,
                     color="",
                     external_url=external_url,
+                    regular_price=1.99,
                 )
                 with open(full_image_path, "rb") as img_file:
                     variant.image.save(
