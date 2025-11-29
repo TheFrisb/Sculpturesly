@@ -2,7 +2,7 @@ import uuid
 
 from django.db import models
 
-from common.models import TimestampedModel, OrderableModel
+from common.models import OrderableModel, TimestampedModel
 
 
 def hero_section_upload_to(instance, filename):

@@ -1,8 +1,7 @@
 from django.db import models
-
-from common.models import TimestampedModel
 from django.utils.translation import gettext_lazy as _
 
+from common.models import TimestampedModel
 from products.models import ProductVariant
 
 

@@ -1,50 +1,73 @@
 import uuid
 
+from django.contrib.postgres.indexes import GinIndex
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 from common.models import TimestampedModel
-from django.utils.translation import gettext_lazy as _
-
 from common.utils import get_unique_slug
 
 
-def get_product_slug(product):
-    if product is None:
-        return "unassigned"
-    return product.slug or slugify(product.title) or "product"
+def get_product_slug(instance):
+    if hasattr(instance, "slug"):
+        return instance.slug
+    if hasattr(instance, "product"):
+        return instance.product.slug
+    if hasattr(instance, "variant"):
+        return instance.variant.product.slug
+    return "unassigned"
 
 
-def product_image_upload_to(instance, filename):
+def product_thumbnail_upload_to(instance, filename):
     ext = filename.split(".")[-1].lower()
-    slug_part = get_product_slug(instance)
-    return f"products/{slug_part}/main/{uuid.uuid4()}.{ext}"
+    slug = get_product_slug(instance)
+    return f"products/{slug}/thumbnail/{uuid.uuid4()}.{ext}"
+
+
+def variant_image_upload_to(instance, filename):
+    """Stores specific variant images (e.g. Red Shirt)."""
+    ext = filename.split(".")[-1].lower()
+    slug = get_product_slug(instance)
+    return f"products/{slug}/variants/{uuid.uuid4()}.{ext}"
 
 
 def product_gallery_upload_to(instance, filename):
+    """Stores general gallery images."""
     ext = filename.split(".")[-1].lower()
-    slug_part = get_product_slug(instance.variant.product)
-    return f"products/{slug_part}/gallery/{uuid.uuid4()}.{ext}"
+    slug = get_product_slug(instance)
+    return f"products/{slug}/gallery/{uuid.uuid4()}.{ext}"
 
 
-def variant_upload_to(instance, filename):
-    ext = filename.split(".")[-1].lower()
-    slug_part = get_product_slug(instance.product)
-    return f"products/{slug_part}/variants/{uuid.uuid4()}.{ext}"
+class Attribute(models.Model):
+
+    name = models.CharField(max_length=255, verbose_name=_("Attribute Name"))
+    slug = models.SlugField(max_length=255, unique=True)
+
+    choices = models.JSONField(
+        default=list, blank=True, verbose_name=_("Valid Choices")
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class ProductType(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_("Type Name"))
+    allowed_attributes = models.ManyToManyField(
+        Attribute, related_name="product_types", verbose_name=_("Allowed Attributes")
+    )
+
+    def __str__(self):
+        return self.name
 
 
 class Category(MPTTModel, TimestampedModel):
-    """
-    Hierarchical categories using MPTT for efficient tree queries.
-    Categories can have parent-child relationships.
-    """
-
     title = models.CharField(max_length=255, verbose_name=_("Category Name"))
-    slug = models.SlugField(
-        max_length=255, unique=True, blank=True, verbose_name=_("Slug")
-    )
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
     parent = TreeForeignKey(
         "self",
         on_delete=models.CASCADE,
@@ -53,7 +76,8 @@ class Category(MPTTModel, TimestampedModel):
         related_name="children",
         verbose_name=_("Parent Category"),
     )
-    description = models.TextField(blank=True, verbose_name=_("Description"))
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to="categories/", null=True, blank=True)
 
     class Meta:
         verbose_name = _("Category")
@@ -68,30 +92,20 @@ class Category(MPTTModel, TimestampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
-            self.slug = get_unique_slug(self.__class__, base_slug, self)
+            self.slug = get_unique_slug(self.__class__, slugify(self.title), self)
         super().save(*args, **kwargs)
 
 
 class Collection(TimestampedModel):
-    """
-    Product collections for grouping (e.g., featured, seasonal).
-    Collections can have multiple products, and products can be in multiple collections.
-    """
-
     title = models.CharField(max_length=255, verbose_name=_("Collection Name"))
-    slug = models.SlugField(
-        max_length=255, unique=True, blank=True, verbose_name=_("Slug")
-    )
-    description = models.TextField(blank=True, verbose_name=_("Description"))
-    products = models.ManyToManyField(
-        "Product", related_name="collections", blank=True, verbose_name=_("Products")
-    )
-    is_active = models.BooleanField(default=True, verbose_name=_("Is Active"))
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    description = models.TextField(blank=True)
+    products = models.ManyToManyField("Product", related_name="collections", blank=True)
+    image = models.ImageField(upload_to="collections/", null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _("Collection")
-        verbose_name_plural = _("Collections")
         ordering = ["title"]
 
     def __str__(self):
@@ -99,39 +113,51 @@ class Collection(TimestampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
-            self.slug = get_unique_slug(self.__class__, base_slug, self)
+            self.slug = get_unique_slug(self.__class__, slugify(self.title), self)
         super().save(*args, **kwargs)
 
 
-# Create your models here.
 class Product(TimestampedModel):
     class Status(models.TextChoices):
-        DRAFT = (
-            "DRAFT",
-            _("Draft"),
-        )
-        ARCHIVED = (
-            "ARCHIVED",
-            _("Archived"),
-        )
+        DRAFT = "DRAFT", _("Draft")
+        ARCHIVED = "ARCHIVED", _("Archived")
         PUBLISHED = "PUBLISHED", _("Published")
 
+    product_type = models.ForeignKey(
+        ProductType,
+        on_delete=models.PROTECT,
+        related_name="products",
+        verbose_name=_("Product Type"),
+    )
+
     status = models.CharField(
-        max_length=10, choices=Status.choices, default=Status.DRAFT
+        max_length=10, choices=Status.choices, default=Status.DRAFT, db_index=True
     )
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
-    image = models.ImageField(upload_to=product_image_upload_to)
+    description = models.TextField(blank=True)
+
     categories = models.ManyToManyField(
         Category, related_name="products", blank=True, verbose_name=_("Categories")
     )
-    price_start = models.DecimalField(default="499.99", decimal_places=2, max_digits=10)
+
+    thumbnail = models.ImageField(
+        upload_to=product_thumbnail_upload_to, null=True, blank=True
+    )
+
+    specifications = models.JSONField(default=dict, blank=True)
+
+    base_price = models.DecimalField(max_digits=10, decimal_places=2, default="0.00")
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["slug"]),
+            models.Index(fields=["status"]),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
-            self.slug = get_unique_slug(self.__class__, base_slug, self)
+            self.slug = get_unique_slug(self.__class__, slugify(self.title), self)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -140,24 +166,88 @@ class Product(TimestampedModel):
 
 class ProductVariant(TimestampedModel):
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, verbose_name="variants"
+        Product, on_delete=models.CASCADE, related_name="variants"
     )
-    sku = models.CharField(max_length=255)
-    height = models.DecimalField(max_digits=10, decimal_places=2)
-    width = models.DecimalField(max_digits=10, decimal_places=2)
-    length = models.DecimalField(max_digits=10, decimal_places=2)
+    sku = models.CharField(max_length=255, unique=True, db_index=True)
+
+    price = models.DecimalField(max_digits=10, decimal_places=2, db_index=True)
+    compare_at_price = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
     stock_quantity = models.PositiveIntegerField(default=0)
-    color = models.CharField(max_length=10)
-    image = models.ImageField(upload_to=variant_upload_to)
-    categories = models.ManyToManyField(
-        Category, related_name="variants", blank=True, verbose_name=_("Categories")
+
+    image = models.ImageField(upload_to=variant_image_upload_to, null=True, blank=True)
+
+    attributes = models.JSONField(default=dict)
+
+    class Meta:
+        ordering = ["sku"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["product", "attributes"], name="unique_variant_attributes"
+            )
+        ]
+        indexes = [
+            GinIndex(fields=["attributes"], name="variant_attributes_gin"),
+            models.Index(fields=["price"]),
+        ]
+
+    def __str__(self):
+        return f"{self.product.title} ({self.sku})"
+
+    def clean(self):
+        super().clean()
+
+        if not hasattr(self, "product") or not self.product.product_type:
+            return
+
+        # 1. Fetch Rules
+        allowed_attrs_qs = self.product.product_type.allowed_attributes.all()
+        allowed_map = {attr.slug: attr.choices for attr in allowed_attrs_qs}
+
+        submitted_keys = set(self.attributes.keys())
+        allowed_keys = set(allowed_map.keys())
+
+        # 2. Check for Forbidden Attributes (Security)
+        invalid_keys = submitted_keys - allowed_keys
+        if invalid_keys:
+            raise ValidationError(
+                f"Attributes {invalid_keys} are not allowed for this product type."
+            )
+
+        # 3. Check for Missing Required Attributes (Integrity)
+        missing_keys = allowed_keys - submitted_keys
+        if missing_keys:
+            raise ValidationError(f"Missing required attributes: {missing_keys}")
+
+        # 4. Check Values against Choices (Business Logic)
+        for key, value in self.attributes.items():
+            valid_choices = allowed_map.get(key)
+            if valid_choices and value not in valid_choices:
+                raise ValidationError(
+                    f"Value '{value}' is not valid for '{key}'. Allowed: {valid_choices}"
+                )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+
+class ProductGalleryImage(TimestampedModel):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="gallery_images"
     )
-    regular_price = models.DecimalField(max_digits=10, decimal_places=2)
-    external_url = models.URLField(blank=True)
-
-
-class ProductImage(TimestampedModel):
     variant = models.ForeignKey(
-        ProductVariant, on_delete=models.CASCADE, related_name="gallery"
+        ProductVariant,
+        on_delete=models.CASCADE,
+        related_name="gallery_images",
+        null=True,
+        blank=True,
     )
     image = models.ImageField(upload_to=product_gallery_upload_to)
+    alt_text = models.CharField(max_length=255, blank=True)
+    is_feature = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("Gallery Image")
+        verbose_name_plural = _("Gallery Images")
