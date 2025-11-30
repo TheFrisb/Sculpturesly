@@ -1,0 +1,8 @@
+1. Add DRF
+-- Sections
+-- Orders
+-- Standardize error handling
+
+2. Stripe Checkout
+
+3. Facebook Pixel
