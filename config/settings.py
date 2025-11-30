@@ -48,13 +48,14 @@ INSTALLED_APPS = [
     "adminsortable2",
     "imagekit",
     "mptt",
+    "django_countries",
     # Internal apps
     "common",
     "accounts",
     "products",
     "carts",
     "sections",
-    "orders"
+    "orders",
 ]
 
 MIDDLEWARE = [
