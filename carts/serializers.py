@@ -1,7 +1,9 @@
-from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
-from .models import Cart, CartItem
+from rest_framework import serializers
+
 from products.models import ProductVariant
+
+from .models import Cart, CartItem
 
 
 class CartVariantSerializer(serializers.ModelSerializer):
