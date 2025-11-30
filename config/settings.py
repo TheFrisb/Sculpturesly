@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Third party apps
     "rest_framework",
     "django_filters",
+    "drf_standardized_errors",
     "adminsortable2",
     "imagekit",
     "mptt",
@@ -191,3 +192,8 @@ LOGGING = {
 }
 
 os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
+
+# DRF configuration
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",  # noqa
+}
