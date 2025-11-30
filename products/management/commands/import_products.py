@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 from products.models import (
     Product,
     ProductVariant,
-)  # Adjust import based on your app name
+)
 
 logger = logging.getLogger(__name__)
 
