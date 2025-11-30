@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third party apps
-    "webpack_loader",
+    "rest_framework",
+    "django_filters",
     "adminsortable2",
     "imagekit",
     "mptt",
@@ -191,16 +192,3 @@ LOGGING = {
 }
 
 os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
-
-
-# Webpack Configuration
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "BUNDLE_DIR_NAME": "js/webpack-bundles/",
-        "CACHE": not DEBUG,
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
