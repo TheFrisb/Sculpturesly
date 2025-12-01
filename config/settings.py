@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third party apps
+    "corsheaders",
     "rest_framework",
     "django_filters",
     "drf_standardized_errors",
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -194,6 +196,10 @@ LOGGING = {
 }
 
 os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS = config("DJANGO_CORS_ALLOWED_ORIGINS", cast=Csv())
+CORS_ALLOW_CREDENTIALS = True
 
 # DRF configuration
 REST_FRAMEWORK = {
