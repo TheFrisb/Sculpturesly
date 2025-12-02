@@ -144,9 +144,7 @@ class Product(TimestampedModel):
     thumbnail = models.ImageField(
         upload_to=product_thumbnail_upload_to, null=True, blank=True
     )
-
     specifications = models.JSONField(default=dict, blank=True)
-
     base_price = models.DecimalField(max_digits=10, decimal_places=2, default="0.00")
 
     class Meta:

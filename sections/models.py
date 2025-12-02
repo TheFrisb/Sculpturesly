@@ -10,13 +10,14 @@ def hero_section_upload_to(instance, filename):
     return f"hero-sections/{uuid.uuid4()}.{ext}"
 
 
-# Create your models here.
-class HeroSection(TimestampedModel, OrderableModel):
-    image = models.ImageField(upload_to=hero_section_upload_to)
-    headline = models.CharField(max_length=255)
-    subtitle = models.CharField(max_length=255)
-    primary_button_text = models.CharField(max_length=255)
-    secondary_button_text = models.CharField(max_length=255)
+def featured_product_upload_to(instance, filename):
+    ext = filename.split(".")[-1].lower()
+    return f"featured-products/{uuid.uuid4()}.{ext}"
 
-    def __str__(self):
-        return self.headline
+
+# Create your models here.
+class FeaturedProduct(TimestampedModel, OrderableModel):
+    product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to=featured_product_upload_to, null=True, blank=True
+    )
