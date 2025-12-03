@@ -141,9 +141,7 @@ class Product(TimestampedModel):
         Category, related_name="products", blank=True, verbose_name=_("Categories")
     )
 
-    thumbnail = models.ImageField(
-        upload_to=product_thumbnail_upload_to, null=True, blank=True
-    )
+    thumbnail = models.ImageField(upload_to=product_thumbnail_upload_to)
     specifications = models.JSONField(default=dict, blank=True)
     base_price = models.DecimalField(max_digits=10, decimal_places=2, default="0.00")
 
@@ -174,7 +172,7 @@ class ProductVariant(TimestampedModel):
     )
     stock_quantity = models.PositiveIntegerField(default=0)
 
-    image = models.ImageField(upload_to=variant_image_upload_to, null=True, blank=True)
+    image = models.ImageField(upload_to=variant_image_upload_to)
 
     attributes = models.JSONField(default=dict)
 

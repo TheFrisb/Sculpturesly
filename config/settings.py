@@ -204,4 +204,6 @@ CORS_ALLOW_CREDENTIALS = True
 # DRF configuration
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",  # noqa
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
 }

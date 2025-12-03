@@ -6,6 +6,7 @@ from sections.serializers import FeaturedCategorySerializer, FeaturedProductSeri
 
 class FeaturedProductsListView(ListAPIView):
     serializer_class = FeaturedProductSerializer
+    pagination_class = None
 
     def get_queryset(self):
         return FeaturedProduct.objects.all().order_by("sort_order")
@@ -13,6 +14,7 @@ class FeaturedProductsListView(ListAPIView):
 
 class FeaturedCategoryListView(ListAPIView):
     serializer_class = FeaturedCategorySerializer
+    pagination_class = None
 
     def get_queryset(self):
         return FeaturedCategory.objects.all().order_by("sort_order")[:3]

@@ -1,7 +1,7 @@
 from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
 
-from sections.models import FeaturedProduct, FeaturedCategory
+from sections.models import FeaturedCategory, FeaturedProduct
 
 
 # Register your models here.
