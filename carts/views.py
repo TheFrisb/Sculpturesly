@@ -32,8 +32,6 @@ class CartViewSet(viewsets.GenericViewSet):
                 "items",
                 "items__product_variant",
                 "items__product_variant__product",
-                "items__product_variant__image",
-                "items__product_variant__product__thumbnail",
             )
 
         cart = cart_qs.first()

@@ -199,6 +199,7 @@ os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
 
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = config("DJANGO_CORS_ALLOWED_ORIGINS", cast=Csv())
+CSRF_TRUSTED_ORIGINS = config("DJANGO_CORS_ALLOWED_ORIGINS", cast=Csv())
 CORS_ALLOW_CREDENTIALS = True
 
 # DRF configuration
